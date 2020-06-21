@@ -20,8 +20,8 @@ podfile: Example/Podfile
 osx_image: xcode11.3
 env:
   matrix:
-    - TEST_SDK=iphonesimulator13.2 OS=13.3 NAME='iPhone XR'
-    - TEST_SDK=iphonesimulator13.2 OS=13.3 NAME='iPhone 7'
+    - TEST_SDK=iphonesimulator13.2 OS=13.3 NAME='iPhone 8 Plus'
+    - TEST_SDK=iphonesimulator13.2 OS=13.3 NAME='iPhone 11'
 
 script:
   - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/ObjectVoice.xcworkspace -scheme ObjectVoice-Example -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES | xcpretty

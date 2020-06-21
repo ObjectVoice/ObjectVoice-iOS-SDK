@@ -78,7 +78,6 @@ class ObjectVoice {
         let account_id : Int? = json["account_id"].int
         let scans : Int? = json["scans"].int
         let clears_remaining : Int? = json["clears_remaining"].int
-        //let locations : [String]? = json["locations"].arrayValue.map{$0.stringValue}
         let mimetype : String? = json["mimetype"].string
         let created : String? = json["created"].string
         let first_assigned : String? = json["first_assigned"].string

@@ -1,0 +1,6 @@
+framework module ObjectVoice {
+  umbrella header "ObjectVoice-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_ObjectVoice_Example {
+  umbrella header "Pods-ObjectVoice_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

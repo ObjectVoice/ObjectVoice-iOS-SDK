@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  ObjectVoice
 //
-//  Created by JamesOfTheBronson on 06/14/2020.
-//  Copyright (c) 2020 JamesOfTheBronson. All rights reserved.
+//  Created by James on 06/14/2020.
+//  Copyright (c) 2020 ObjectVoice Inc. All rights reserved.
 //
 
 import UIKit

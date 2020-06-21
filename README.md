@@ -1,6 +1,6 @@
 # ObjectVoice
 
-[![CI Status](https://img.shields.io/travis/JamesOfTheBronson/ObjectVoice.svg?style=flat)](https://travis-ci.org/JamesOfTheBronson/ObjectVoice)
+[![CI Status](https://img.shields.io/travis/ObjectVoice/ObjectVoice-iOS-SDK.svg?style=flat)](https://travis-ci.org/ObjectVoice/ObjectVoice-iOS-SDK)
 [![Version](https://img.shields.io/cocoapods/v/ObjectVoice.svg?style=flat)](https://cocoapods.org/pods/ObjectVoice)
 [![License](https://img.shields.io/cocoapods/l/ObjectVoice.svg?style=flat)](https://cocoapods.org/pods/ObjectVoice)
 [![Platform](https://img.shields.io/cocoapods/p/ObjectVoice.svg?style=flat)](https://cocoapods.org/pods/ObjectVoice)
@@ -22,7 +22,7 @@ pod 'ObjectVoice'
 
 ## Author
 
-JamesOfTheBronson, jtice@acedtheirsoftware.com
+James Tice, james@objectvoice.com
 
 ## License
 

@@ -2,8 +2,8 @@ PODS:
   - Alamofire (4.9.1)
   - Nimble (7.3.4)
   - ObjectVoice (0.1.0):
-    - Alamofire
-    - SwiftyJSON
+    - Alamofire (~> 4.9.1)
+    - SwiftyJSON (~> 5.0.0)
   - Quick (1.2.0)
   - SwiftyJSON (5.0.0)
 
@@ -26,10 +26,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
-  ObjectVoice: 7b4ca65b730e94e71de381fd8b3b841b93993bb0
+  ObjectVoice: ac5e5ff6485d181e170efc986ba40b02076281de
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 14a46572ef9a5ab54dd79ca3d2865378433a0eba
+PODFILE CHECKSUM: 4de9c3b7efd758992b21977783551e906d24596e
 
 COCOAPODS: 1.9.3

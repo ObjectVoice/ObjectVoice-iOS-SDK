@@ -10,22 +10,22 @@
     "file": "LICENSE"
   },
   "authors": {
-    "James Tice": "jtice@objectvoice.com"
+    "James Tice": "james@objectvoice.com"
   },
   "source": {
     "git": "https://github.com/ObjectVoice/ObjectVoice-iOS-SDK.git",
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "9.0"
+    "ios": "10.0"
   },
   "source_files": "ObjectVoice/Classes/**/*",
   "dependencies": {
     "Alamofire": [
-
+      "~> 4.9.1"
     ],
     "SwiftyJSON": [
-
+      "~> 5.0.0"
     ]
   },
   "swift_version": "4.0"

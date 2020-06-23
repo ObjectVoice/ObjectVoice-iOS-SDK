@@ -12,13 +12,13 @@ import Alamofire
 
 public class AccountService : ObjectVoiceAPIService   {
     
-    var jwt: String
-    var logged_in: Bool
-    var account_id: Int
-    var username: String
-    var role: String
-    var agreed_tos: Bool
-    var needs_account_setup: Bool
+    public var jwt: String
+    public var logged_in: Bool
+    public var account_id: Int
+    public var username: String
+    public var role: String
+    public var agreed_tos: Bool
+    public var needs_account_setup: Bool
     
     public static let KEY_ACCOUNT_ID = "ov_account_id"
     public static let KEY_LOGGED_IN = "ov_logged_in"
@@ -40,13 +40,13 @@ public class AccountService : ObjectVoiceAPIService   {
         
     }
     
-    func setTOSAgreed() {
+    public func setTOSAgreed() {
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: AccountService.KEY_AGREED_TOS)
         self.loadAccount()
     }
     
-    func loadAccount()  {
+    public func loadAccount()  {
         let defaults = UserDefaults.standard
         self.account_id = defaults.integer(forKey: AccountService.KEY_ACCOUNT_ID)
         self.logged_in = defaults.bool(forKey: AccountService.KEY_LOGGED_IN)
@@ -57,7 +57,7 @@ public class AccountService : ObjectVoiceAPIService   {
 
     }
     
-    func clearAccount() {
+    public func clearAccount() {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: AccountService.KEY_ACCOUNT_ID)
         defaults.removeObject(forKey: AccountService.KEY_LOGGED_IN)
@@ -70,8 +70,8 @@ public class AccountService : ObjectVoiceAPIService   {
         self.loadAccount()
 
 
-        var base = "https://" + getAPIDomain() + "/"
-        guard let url = URL(string: base) else { return }
+//        let base = "https://" + getAPIDomain() + "/"
+//        guard let url = URL(string: base) else { return }
 //        let cstorage = HTTPCookieStorage.shared
 //        cstorage.removeCookies(since: Date(timeIntervalSince1970: 0))
         self.removeCookies()
@@ -90,11 +90,11 @@ public class AccountService : ObjectVoiceAPIService   {
     }
     
     
-    func accountLogin(username: String, password: String, completion: ((Int, String)->())?)  {
+    public func accountLogin(username: String, password: String, completion: ((Int, String)->())?)  {
         
 
         let endpoint = "/login"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request")
@@ -142,11 +142,11 @@ public class AccountService : ObjectVoiceAPIService   {
         
     }
     
-    func accountRegister(username: String?, password: String?, completion: ((Int, String)->())?)    {
+    public func accountRegister(username: String?, password: String?, completion: ((Int, String)->())?)    {
         
 
         let endpoint = "/register"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request")
@@ -211,11 +211,11 @@ public class AccountService : ObjectVoiceAPIService   {
         }
     }
     
-    func setAccountDetails(username: String, password: String, completion: ((Int, String)->())?)    {
+    public func setAccountDetails(username: String, password: String, completion: ((Int, String)->())?)    {
         
         
         let endpoint = "/accounts/current"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request")

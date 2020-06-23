@@ -21,7 +21,7 @@ public class LocationService   {
 
     var last_location: CLLocation?;
     
-    init()  {
+    public init()  {
         let defaults = UserDefaults.standard
         let lat = defaults.double(forKey: LocationService.KEY_LAST_LAT)
         let lon = defaults.double(forKey: LocationService.KEY_LAST_LON)
@@ -34,11 +34,11 @@ public class LocationService   {
         
     }
     
-    func getLastLocation() -> CLLocation?  {
+    public func getLastLocation() -> CLLocation?  {
         return last_location
     }
     
-    func storeLastLocation(location: CLLocation)    {
+    public func storeLastLocation(location: CLLocation)    {
         let defaults = UserDefaults.standard
         defaults.set(location.coordinate.latitude, forKey: LocationService.KEY_LAST_LAT)
         defaults.set(location.coordinate.longitude, forKey: LocationService.KEY_LAST_LON)

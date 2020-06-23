@@ -165,7 +165,7 @@ public class ObjectVoice {
         return nil
     }
     
-    func getWebLocationForTag(tags_id: Int) -> WebLocation? {
+    public func getWebLocationForTag(tags_id: Int) -> WebLocation? {
         for webLocation in self.web_locations {
             if let t_id = webLocation.tags_id   {
                 if(t_id == tags_id) {
@@ -176,7 +176,7 @@ public class ObjectVoice {
         return nil
     }
     
-    func getDefaultWebLocation() -> WebLocation? {
+    public func getDefaultWebLocation() -> WebLocation? {
         for webLocation in self.web_locations {
             if(webLocation.tags_id == nil)  {
                 return webLocation

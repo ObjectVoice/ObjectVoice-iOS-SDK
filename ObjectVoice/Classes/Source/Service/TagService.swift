@@ -18,10 +18,10 @@ public class TagService : ObjectVoiceAPIService   {
         auth = AccountService()
     }
     
-    func assignToAccountMap(code: String, completion: ((Int, String)->())?)  {
+    public func assignToAccountMap(code: String, completion: ((Int, String)->())?)  {
         
         let endpoint = "/accounts/current/username_tag/object_voices/" + code
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request")
@@ -33,7 +33,7 @@ public class TagService : ObjectVoiceAPIService   {
         ]
         
         let locationService = LocationService()
-        var last_location = locationService.getLastLocation()
+        let last_location = locationService.getLastLocation()
         
         if let lat = last_location?.coordinate.latitude {
             parameters["lat"] = lat
@@ -82,11 +82,11 @@ public class TagService : ObjectVoiceAPIService   {
         
     }
     
-    func removeFromAccountMap(code: String, completion: ((Int, String)->())?)  {
+    public func removeFromAccountMap(code: String, completion: ((Int, String)->())?)  {
         
         
         let endpoint = "/accounts/current/username_tag/object_voices/" + code
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request")
@@ -124,14 +124,14 @@ public class TagService : ObjectVoiceAPIService   {
         
     }
 
-    func getNearbyTags(completion: ((Int, String, [OVTag])->())?)    {
+    public func getNearbyTags(completion: ((Int, String, [OVTag])->())?)    {
         
         
         
         let endpoint = "/public/tags/nearby"
         var query_string = "?api_key=" + getAPIKey()
         let locationService = LocationService()
-        var last_location = locationService.getLastLocation()
+        let last_location = locationService.getLastLocation()
         
         if let lat = last_location?.coordinate.latitude {
             query_string = query_string + "&lat=\(lat)"
@@ -162,15 +162,11 @@ public class TagService : ObjectVoiceAPIService   {
 
             
                 
-        var parameters: Parameters = [
-            //"username": username,
-            //"password": password
-            :]
+        let parameters: Parameters = [:]
         
 
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)",
-            //  "Accept": "application/json"
         ];
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -212,11 +208,11 @@ public class TagService : ObjectVoiceAPIService   {
     }
 
     
-    func getMostPopularTags(completion: ((Int, String, [OVTag])->())?)    {
+    public func getMostPopularTags(completion: ((Int, String, [OVTag])->())?)    {
         return getMostPopularTags(brands_id: nil, completion: completion)
     }
 
-    func getMostPopularTags(brands_id: Int?, completion: ((Int, String, [OVTag])->())?)    {
+    public func getMostPopularTags(brands_id: Int?, completion: ((Int, String, [OVTag])->())?)    {
         
         
         let endpoint = "/public/tags/popular"
@@ -231,7 +227,7 @@ public class TagService : ObjectVoiceAPIService   {
         }
         
         
-        var parameters: Parameters = [:]
+        let parameters: Parameters = [:]
         
 
         let headers: HTTPHeaders = [
@@ -273,13 +269,13 @@ public class TagService : ObjectVoiceAPIService   {
         }
     }
     
-    func searchForNearbyTags(search: String, completion: ((Int, String, [OVTag])->())?)    {
+    public func searchForNearbyTags(search: String, completion: ((Int, String, [OVTag])->())?)    {
         return searchForNearbyTags(brands_id: nil, search: search, completion: completion)
     }
 
-    func searchForNearbyTags(brands_id: Int?, search: String, completion: ((Int, String, [OVTag])->())?)    {
+    public func searchForNearbyTags(brands_id: Int?, search: String, completion: ((Int, String, [OVTag])->())?)    {
         
-        var filtered_search = search.replacingOccurrences(of: "#", with: "").replacingOccurrences(of: "@", with: "").replacingOccurrences(of: "/", with: "")
+        let filtered_search = search.replacingOccurrences(of: "#", with: "").replacingOccurrences(of: "@", with: "").replacingOccurrences(of: "/", with: "")
 
         
         let endpoint = "/public/tags/search/nearby/" + filtered_search
@@ -289,7 +285,7 @@ public class TagService : ObjectVoiceAPIService   {
         }
         
         let locationService = LocationService()
-        var last_location = locationService.getLastLocation()
+        let last_location = locationService.getLastLocation()
         
         if let lat = last_location?.coordinate.latitude {
             query_string += "&lat=\(lat)"
@@ -315,14 +311,10 @@ public class TagService : ObjectVoiceAPIService   {
         }
         
         
-        var parameters: Parameters = [
-            //"username": username,
-            //"password": password
-            :]
+        let parameters: Parameters = [:]
         
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)",
-            //  "Accept": "application/json"
         ];
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -360,13 +352,13 @@ public class TagService : ObjectVoiceAPIService   {
         }
     }
     
-    func searchForTags(search: String, completion: ((Int, String, [OVTag])->())?)    {
+    public func searchForTags(search: String, completion: ((Int, String, [OVTag])->())?)    {
         return searchForNearbyTags(brands_id: nil, search: search, completion: completion)
     }
     
-    func searchForTags(brands_id: Int?, search: String, completion: ((Int, String, [OVTag])->())?)    {
+    public func searchForTags(brands_id: Int?, search: String, completion: ((Int, String, [OVTag])->())?)    {
         
-        var filtered_search = search.replacingOccurrences(of: "#", with: "").replacingOccurrences(of: "@", with: "").replacingOccurrences(of: "/", with: "")
+        let filtered_search = search.replacingOccurrences(of: "#", with: "").replacingOccurrences(of: "@", with: "").replacingOccurrences(of: "/", with: "")
         
         
         let endpoint = "/public/tags/search/" + filtered_search
@@ -382,30 +374,10 @@ public class TagService : ObjectVoiceAPIService   {
         }
         
         
-        var parameters: Parameters = [
-            //"username": username,
-            //"password": password
-            :]
-        
-        /*if let lat = last_location?.coordinate.latitude {
-         parameters["lat"] = lat
-         }
-         if let lon = last_location?.coordinate.longitude {
-         parameters["lon"] = lon
-         }
-         if let altitude = last_location?.altitude {
-         parameters["altitude"] = altitude
-         }
-         if let timestamp = last_location?.timestamp {
-         parameters["location_acquired"] = timestamp.timeIntervalSince1970
-         }
-         if let horizontal_accuracy = last_location?.horizontalAccuracy {
-         parameters["accuracy"] = horizontal_accuracy
-         }*/
+        var parameters: Parameters = [:]
         
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)",
-            //  "Accept": "application/json"
         ];
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true

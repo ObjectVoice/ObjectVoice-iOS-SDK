@@ -14,22 +14,22 @@ import MobileCoreServices
 public class BrandService : ObjectVoiceAPIService   {
     
     public static var brands_id: Int = -1
-    var auth: AccountService
     public static var scan_mode: String = "CONTENT"
     public static var next_scan: String = "CONTENT"
     public static var pending_code: String = ""
-    
+    var auth: AccountService
+
     
     override init() {
         auth = AccountService()
     }
 
-    func create(brand: Brand, completion: ((Int, String, Brand?)->())?)  {
+    public func create(brand: Brand, completion: ((Int, String, Brand?)->())?)  {
         auth = AccountService()
         
         
         let endpoint = "/brands"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request", nil)
@@ -79,21 +79,20 @@ public class BrandService : ObjectVoiceAPIService   {
     }
     
 
-    func getBrandForId(brands_id: Int, completion: ((Int, String, Brand?)->())?)    {
+    public func getBrandForId(brands_id: Int, completion: ((Int, String, Brand?)->())?)    {
         
         auth = AccountService()
         
         
         let endpoint = "/brands/\(brands_id)"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
-            var tmp : Brand?
             completion!(-1, "Malformed URL in endpoint request", nil)
             return
         }
         
-        var parameters: Parameters = [:]
+        let parameters: Parameters = [:]
         
         
         let headers: HTTPHeaders = [
@@ -127,17 +126,16 @@ public class BrandService : ObjectVoiceAPIService   {
         }
     }
     
-    func getBrandFromURL(input_url: String, completion: ((Int, String, Brand?)->())?)    {
+    public func getBrandFromURL(input_url: String, completion: ((Int, String, Brand?)->())?)    {
         
         auth = AccountService()
         
         
         guard let url = URL(string: input_url) else {
-            var tmp : Brand?
             completion!(-1, "Malformed URL in endpoint request", nil)
             return
         }
-        var parameters: Parameters = [:]
+        let parameters: Parameters = [:]
         
         
         let headers: HTTPHeaders = [

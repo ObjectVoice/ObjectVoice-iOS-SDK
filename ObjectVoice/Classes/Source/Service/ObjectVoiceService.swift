@@ -69,10 +69,10 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
     }
 
     
-    func claim(code: String, completion: ((Int, String)->())?)  {
+    public func claim(code: String, completion: ((Int, String)->())?)  {
                 
         let endpoint = "/object_voices/" + code + "/claim"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in API request")
@@ -108,10 +108,10 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         
     }
     
-    func upgrade(code: String, completion: ((Int, String)->())?)  {
+    public func upgrade(code: String, completion: ((Int, String)->())?)  {
         
         let endpoint = "/object_voices/" + code + "/upgrade"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in API request")
@@ -148,7 +148,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         
     }
     
-    func clear(code: String, reclaim: Bool, completion: ((Int, String)->())?)  {
+    public func clear(code: String, reclaim: Bool, completion: ((Int, String)->())?)  {
 
     
         let endpoint = "/object_voices/" + code + "/everything"
@@ -197,11 +197,11 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         
     }
     
-    func assignURL(code: String, url: String, completion: ((Int, String)->())?)  {
+    public func assignURL(code: String, url: String, completion: ((Int, String)->())?)  {
         
         
         let endpoint = "/object_voices/" + code + "/web_locations"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in API request")
@@ -241,11 +241,11 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         
     }
     
-    func assignFile(code: String, url: String, progress: ((Double)->())?, completion: ((Int, String)->())?)  {
+    public func assignFile(code: String, url: String, progress: ((Double)->())?, completion: ((Int, String)->())?)  {
         
         
         let endpoint = "/object_voices/" + code + "/web_locations"
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         
         guard let endpointUrl = URL(string: base) else {
@@ -262,7 +262,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
             "authorization": "Bearer \(auth.jwt)",
         ];
         
-        var file = NSURL.init(string: url)
+        let file = NSURL.init(string: url)
         guard let data = try? Data(contentsOf: file!.absoluteURL!) else {
             completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.")
             return
@@ -315,7 +315,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
     }
     
     
-    func getObjectVoiceForTag(tag: String, completion: ((Int, String, [ObjectVoice])->())?)    {
+    public func getObjectVoiceForTag(tag: String, completion: ((Int, String, [ObjectVoice])->())?)    {
         
         if(tag == "")   {
             completion!(-1, "Please enter the tag you would like to search for.", [ObjectVoice]())
@@ -324,7 +324,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
 
         
         let endpoint = "/public/tags/tag_name" + tag
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Unexpected URL format when getting ObjectVoices for tag", [ObjectVoice]())
@@ -332,7 +332,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         }
 
         
-        var parameters: Parameters = [:]
+        let parameters: Parameters = [:]
                 
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)"
@@ -383,7 +383,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         return "application/octet-stream"
     }
     
-    func getObjectVoiceForCode(scan_type: String, code: String, tag: OVTag?, completion: ((Int, String, ObjectVoice?)->())?)    {
+    public func getObjectVoiceForCode(scan_type: String, code: String, tag: OVTag?, completion: ((Int, String, ObjectVoice?)->())?)    {
         
         if(code == "")   {
             completion!(-1, "Please enter the tag you would like to search for.", nil)
@@ -391,11 +391,10 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         }
         
         let endpoint = "/public/object_voices/" + code
-        var query_string = "?api_key=" + getAPIKey()
+        let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
-            var ov: ObjectVoice?
-            completion!(-1, "Unexpected URL state getting ObjectVoice for code: " + code, ov)
+            completion!(-1, "Unexpected URL state getting ObjectVoice for code: " + code, nil)
             return
         }
                 
@@ -403,7 +402,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         
         
         let locationService = LocationService()
-        var last_location = locationService.getLastLocation()
+        let last_location = locationService.getLastLocation()
         
         parameters["scan_type"] = scan_type
         parameters["api_key"] = getAPIKey()
@@ -468,33 +467,33 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
     public static let KEY_SCAN_MODE = "ov_scan_mode"
     public static let KEY_SCAN_PREFIX = "ov_scan_"
     
-    func setLastCodeScanned(code: String)  {
+    public func setLastCodeScanned(code: String)  {
         let defaults = UserDefaults.standard
         defaults.set(code, forKey: ObjectVoiceService.KEY_LAST_SCANNED)
         defaults.set(Int(Date().timeIntervalSince1970), forKey: ObjectVoiceService.KEY_LAST_SCANNED + code)
     }
     
-    func getLastCodeScanned() -> String   {
+    public func getLastCodeScanned() -> String   {
         let defaults = UserDefaults.standard
         return defaults.object(forKey: ObjectVoiceService.KEY_LAST_SCANNED) as? String ?? String()
     }
     
-    func setScanMode(mode: String)  {
+    public func setScanMode(mode: String)  {
         let defaults = UserDefaults.standard
         defaults.set(mode, forKey: ObjectVoiceService.KEY_SCAN_MODE)
     }
     
-    func getScanMode() -> String   {
+    public func getScanMode() -> String   {
         let defaults = UserDefaults.standard
         return defaults.object(forKey: ObjectVoiceService.KEY_SCAN_MODE) as? String ?? ObjectVoiceService.SCAN_MODE_CONTENT
     }
     
-    func getLastScan(code: String) -> Int   {
+    public func getLastScan(code: String) -> Int   {
         let defaults = UserDefaults.standard
         return defaults.integer(forKey: ObjectVoiceService.KEY_SCAN_PREFIX + code)
     }
     
-    func clearScanCache()   {
+    public func clearScanCache()   {
         for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
             print("\(key) = \(value) \n")
             if(key.starts(with: ObjectVoiceService.KEY_SCAN_PREFIX))    {

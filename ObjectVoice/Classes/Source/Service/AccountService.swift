@@ -28,7 +28,7 @@ public class AccountService : ObjectVoiceAPIService   {
     public static let KEY_AGREED_TOS = "ov_agreed_tos"
     public static let KEY_NEEDS_ACCOUNT_SETUP = "ov_needs_account_setup"
     
-    override init() {
+    public override init() {
         let defaults = UserDefaults.standard
         self.account_id = defaults.integer(forKey: AccountService.KEY_ACCOUNT_ID)
         self.logged_in = defaults.bool(forKey: AccountService.KEY_LOGGED_IN)

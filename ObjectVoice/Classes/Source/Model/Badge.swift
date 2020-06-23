@@ -11,8 +11,8 @@ import SwiftyJSON
 
 public class Badge : Codable {
     
-    var primary_url: String
-    var badges_id: Int?
+    public var primary_url: String
+    public var badges_id: Int?
     
     public static let OBJECT_KEY: String = "badge"
     public static let OBJECT_LIST_KEY: String = "badges"
@@ -23,16 +23,16 @@ public class Badge : Codable {
         case badges_id
     }
     
-    init(primary_url: String, badges_id: Int) {
+    public init(primary_url: String, badges_id: Int) {
         self.primary_url = primary_url
         self.badges_id = badges_id
     }
     
-    init?(primary_url: String)  {
+    public init?(primary_url: String)  {
         self.primary_url = primary_url
     }
     
-    static func fromJSON(json: JSON) -> Badge?  {
+    public static func fromJSON(json: JSON) -> Badge?  {
         
         let primary_url : String? = json["primary_url"].string
         let badges_id : Int? = json["badges_id"].int

@@ -20,7 +20,7 @@ public class BrandService : ObjectVoiceAPIService   {
     var auth: AccountService
 
     
-    override init() {
+    public override init() {
         auth = AccountService()
     }
 

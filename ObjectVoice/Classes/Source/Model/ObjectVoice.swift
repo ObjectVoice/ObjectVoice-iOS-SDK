@@ -26,30 +26,30 @@ public class ObjectVoice {
     public static let CATEGORY_STANDARD: String = "STANDARD"
     public static let CATEGORY_PREMIUM: String = "PREMIUM"
     
-    var code: String
-    var accountId: Int?
-    var web_locations: [WebLocation] = [WebLocation]()
-    var mimetype: String?
-    var visibility: String
-    var created: Date?
-    var firstAssigned: Date?
-    var lastAssigned: Date?
-    var lat: Double?
-    var lon: Double?
-    var scans: Int?
-    var clears_remaining: Int?
-    var category: String?
-    var tags: [OVTag] = [OVTag]()
-    var account: Account?
+    public var code: String
+    public var accountId: Int?
+    public var web_locations: [WebLocation] = [WebLocation]()
+    public var mimetype: String?
+    public var visibility: String
+    public var created: Date?
+    public var firstAssigned: Date?
+    public var lastAssigned: Date?
+    public var lat: Double?
+    public var lon: Double?
+    public var scans: Int?
+    public var clears_remaining: Int?
+    public var category: String?
+    public var tags: [OVTag] = [OVTag]()
+    public var account: Account?
     
     
-    init?(code: String)  {
+    public init?(code: String)  {
         self.code = code
         self.visibility = "public"
     }
     
     
-    init?(code: String, accountId: Int, web_locations: [WebLocation], mimetype: String, visibility: String, created: Date?, firstAssigned: Date?, lastAssigned: Date?)  {
+    public init?(code: String, accountId: Int, web_locations: [WebLocation], mimetype: String, visibility: String, created: Date?, firstAssigned: Date?, lastAssigned: Date?)  {
         if(code.isEmpty || created == nil)  {
             return nil;
         }
@@ -63,7 +63,7 @@ public class ObjectVoice {
         self.lastAssigned = lastAssigned
     }
     
-    static func fromJSON(json: JSON) -> ObjectVoice?  {
+    public static func fromJSON(json: JSON) -> ObjectVoice?  {
         
         //let json = JSON(parseJSON: rawTextResponse)
         //var result = -1

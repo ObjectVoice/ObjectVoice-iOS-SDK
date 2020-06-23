@@ -23,17 +23,17 @@ public class Brand : Codable {
 //    protected $tags_ids = array();
 
     
-    var brands_id: Int
-    var brand_name: String
-    var brand_logo: String
-    var color_header_text: String
-    var color_detail_text: String
-    var color_primary_background: String
-    var color_secondary_background: String
-    var should_persist: Bool = false
-    var trigger_state: String = "HOME"
-    var tags_ids: [Int] = [Int]()
-    var tags: [OVTag] = [OVTag]()
+    public var brands_id: Int
+    public var brand_name: String
+    public var brand_logo: String
+    public var color_header_text: String
+    public var color_detail_text: String
+    public var color_primary_background: String
+    public var color_secondary_background: String
+    public var should_persist: Bool = false
+    public var trigger_state: String = "HOME"
+    public var tags_ids: [Int] = [Int]()
+    public var tags: [OVTag] = [OVTag]()
     
     public static let TRIGGER_STATE_HOME: String = "HOME"
     public static let TRIGGER_STATE_MAPS: String = "MAPS"
@@ -54,7 +54,7 @@ public class Brand : Codable {
 
     
 
-    init(brands_id: Int, brand_name: String,  brand_logo: String, color_header_text: String, color_detail_text: String, color_primary_background: String, color_secondary_background: String, should_persist: Bool, trigger_state: String, tags_ids: [Int], tags: [OVTag])  {
+    public init(brands_id: Int, brand_name: String,  brand_logo: String, color_header_text: String, color_detail_text: String, color_primary_background: String, color_secondary_background: String, should_persist: Bool, trigger_state: String, tags_ids: [Int], tags: [OVTag])  {
         self.brands_id = brands_id
         self.brand_name = brand_name
         self.brand_logo = brand_logo
@@ -68,7 +68,7 @@ public class Brand : Codable {
         self.trigger_state = trigger_state
     }
     
-    init(brands_id: Int, brand_name: String,  brand_logo: String, color_header_text: String, color_detail_text: String, color_primary_background: String, color_secondary_background: String)  {
+    public init(brands_id: Int, brand_name: String,  brand_logo: String, color_header_text: String, color_detail_text: String, color_primary_background: String, color_secondary_background: String)  {
         self.brands_id = brands_id
         self.brand_name = brand_name
         self.brand_logo = brand_logo
@@ -78,7 +78,7 @@ public class Brand : Codable {
         self.color_secondary_background = color_secondary_background
     }
     
-    static func fromJSON(json: JSON) -> Brand?  {
+    public static func fromJSON(json: JSON) -> Brand?  {
         
         let brands_id : Int? = json["brands_id"].int
         let brand_name : String? = json["brand_name"].string

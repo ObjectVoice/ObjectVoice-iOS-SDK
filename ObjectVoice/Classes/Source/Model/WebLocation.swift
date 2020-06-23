@@ -16,26 +16,26 @@ public class WebLocation : NSObject {
     public static let OBJECT_LIST_KEY: String = "web_locations"
 
     
-    var code: String
-    var location: String
-    var tags_id: Int?
-    var type: String?
-    var thumbnail_default: String?
+    public var code: String
+    public var location: String
+    public var tags_id: Int?
+    public var type: String?
+    public var thumbnail_default: String?
     
     
     
-    init?(code: String, location: String)  {
+    public init?(code: String, location: String)  {
         self.code = code
         self.location = location
     }
     
-    init?(code: String, location: String, tags_id: Int)  {
+    public init?(code: String, location: String, tags_id: Int)  {
         self.code = code
         self.location = location
         self.tags_id = tags_id
     }
     
-    static func fromJSON(json: JSON) -> WebLocation?  {
+    public static func fromJSON(json: JSON) -> WebLocation?  {
         
         let code : String? = json["code"].string
         let location : String? = json["location"].string

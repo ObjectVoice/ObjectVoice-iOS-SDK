@@ -12,24 +12,24 @@ import SwiftyJSON
 public class Account {
     
     
-    var username: String?
-    var account_id: Int?
-    var role: String?
+    public var username: String?
+    public var account_id: Int?
+    public var role: String?
     
     public static let OBJECT_KEY: String = "account"
     public static let OBJECT_LIST_KEY: String = "account"
     
-    init?(username: String, account_id: Int, role: String)  {
+    public init?(username: String, account_id: Int, role: String)  {
         self.username = username
         self.account_id = account_id
         self.role = role
     }
     
-    init?() {
+    public init?() {
         
     }
         
-    static func fromJSON(json: JSON) -> Account?  {
+    public static func fromJSON(json: JSON) -> Account?  {
         
         let username : String? = json["username"].string
         let account_id : Int? = json["account_id"].int

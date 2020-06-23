@@ -14,6 +14,9 @@ public class ObjectVoiceAPIService    {
     private static var api_domain = "api.objectvoice.com"
     private static var api_directory = "/api/v2"
     
+    public init()   {
+        
+    }
 
     public func getAPIKey() -> String    {
         return ObjectVoiceAPIService.api_key

@@ -12,12 +12,12 @@ import SwiftyJSON
 public class OVTag : Codable {
     
     
-    var tag_name: String
-    var tags_id: Int?
-    var popularity: Int?
-    var object_voice_count: Int?
-    var remote_content_access: String
-    var badge: Badge?
+    public var tag_name: String
+    public var tags_id: Int?
+    public var popularity: Int?
+    public var object_voice_count: Int?
+    public var remote_content_access: String
+    public var badge: Badge?
     
     public static let REMOTE_CONTENT_YES: String = "yes"
     public static let REMOTE_CONTENT_NO: String = "no"
@@ -37,23 +37,23 @@ public class OVTag : Codable {
         case remote_content_access
     }
     
-    init(tag_name: String)  {
+    public init(tag_name: String)  {
         self.tag_name = tag_name
         self.remote_content_access = "no"
     }
-    init()  {
+    public init()  {
         self.tag_name = ""
         self.remote_content_access = "no"
     }
     
-    init?(tag_name: String, tags_id: Int)  {
+    public init?(tag_name: String, tags_id: Int)  {
         self.tag_name = tag_name
         self.tags_id = tags_id
         self.remote_content_access = "no"
 
     }
     
-    init(tag_name: String, tags_id: Int?, popularity: Int?, object_voice_count: Int?, badge: Badge?) {
+    public init(tag_name: String, tags_id: Int?, popularity: Int?, object_voice_count: Int?, badge: Badge?) {
         self.tag_name = tag_name
         self.tags_id = tags_id
         self.popularity = popularity
@@ -63,7 +63,7 @@ public class OVTag : Codable {
 
     }
     
-    static func fromJSON(json: JSON) -> OVTag?  {
+    public static func fromJSON(json: JSON) -> OVTag?  {
         
         let tag_name : String? = json["tag_name"].string
         let tags_id : Int? = json["tags_id"].int

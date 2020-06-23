@@ -14,7 +14,7 @@ public class TagService : ObjectVoiceAPIService   {
 
     var auth: AccountService
 
-    override init() {
+    public override init() {
         auth = AccountService()
     }
     

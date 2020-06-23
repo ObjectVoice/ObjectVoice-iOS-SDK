@@ -64,7 +64,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         ["Map", "Add To Map"]
     ]
     
-    override init() {
+    public override init() {
         auth = AccountService()
     }
 

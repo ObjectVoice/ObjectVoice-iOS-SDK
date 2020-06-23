@@ -57,7 +57,6 @@ public class TagService : ObjectVoiceAPIService   {
         
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)",
-            //  "Accept": "application/json"
         ];
         
         Alamofire.request(base, method: .post, parameters: parameters, encoding: JSONEncoding(options: []), headers: headers).response  { response in
@@ -99,7 +98,6 @@ public class TagService : ObjectVoiceAPIService   {
         
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)",
-            //  "Accept": "application/json"
         ];
         
         Alamofire.request(base, method: .delete, parameters: parameters, encoding: JSONEncoding(options: []), headers: headers).response  { response in
@@ -192,11 +190,8 @@ public class TagService : ObjectVoiceAPIService   {
                                 }
                             }
                             
-                            
-                            // self.loadAccount()
                         }
                         completion!(result, message!, tags)
-                        // completion!(result, message!)
                         
                     }   else    {
                         completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tags)
@@ -225,9 +220,6 @@ public class TagService : ObjectVoiceAPIService   {
             completion!(-1, "Malformed URL in endpoint request", [OVTag]())
             return
         }
-        
-        
-        let parameters: Parameters = [:]
         
 
         let headers: HTTPHeaders = [

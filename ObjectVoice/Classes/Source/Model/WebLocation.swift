@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class WebLocation : NSObject {
+public class WebLocation : NSObject {
     
     
     public static let OBJECT_KEY: String = "web_location"

@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class LocationService   {
+public class LocationService   {
     
     
     public static let KEY_LAST_LAT = "ov_last_lat"

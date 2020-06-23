@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 
-class AccountService : ObjectVoiceAPIService   {
+public class AccountService : ObjectVoiceAPIService   {
     
     var jwt: String
     var logged_in: Bool

@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 
-class TagService : ObjectVoiceAPIService   {
+public class TagService : ObjectVoiceAPIService   {
 
     var auth: AccountService
 

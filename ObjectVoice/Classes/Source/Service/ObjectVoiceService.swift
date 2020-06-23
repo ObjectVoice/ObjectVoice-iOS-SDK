@@ -21,7 +21,7 @@ class Networking {
     }
 }
 
-class ObjectVoiceService : ObjectVoiceAPIService   {
+public class ObjectVoiceService : ObjectVoiceAPIService   {
     
     var auth: AccountService
     public static var scan_mode: String = "CONTENT"

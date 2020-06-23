@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class Account {
+public class Account {
     
     
     var username: String?

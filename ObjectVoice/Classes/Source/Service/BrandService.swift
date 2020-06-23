@@ -11,7 +11,7 @@ import SwiftyJSON
 import Alamofire
 import MobileCoreServices
 
-class BrandService : ObjectVoiceAPIService   {
+public class BrandService : ObjectVoiceAPIService   {
     
     public static var brands_id: Int = -1
     var auth: AccountService

@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class OVTag : Codable {
+public class OVTag : Codable {
     
     
     var tag_name: String

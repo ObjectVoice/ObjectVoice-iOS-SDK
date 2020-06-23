@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class Brand : Codable {
+public class Brand : Codable {
     
     
 //    protected $brands_id = -1;

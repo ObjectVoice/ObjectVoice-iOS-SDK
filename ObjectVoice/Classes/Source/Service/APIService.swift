@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ObjectVoiceAPIService    {
+public class ObjectVoiceAPIService    {
     
     private static var api_key = ""
     private static var api_domain = "api.objectvoice.com"

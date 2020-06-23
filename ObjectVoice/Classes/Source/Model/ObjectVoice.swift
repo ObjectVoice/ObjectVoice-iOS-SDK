@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class ObjectVoice {
+public class ObjectVoice {
     
 //    private String code = "";
 //    private int accountId = -1;

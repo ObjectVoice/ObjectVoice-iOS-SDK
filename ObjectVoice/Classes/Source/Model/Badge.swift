@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class Badge : Codable {
+public class Badge : Codable {
     
     var primary_url: String
     var badges_id: Int?

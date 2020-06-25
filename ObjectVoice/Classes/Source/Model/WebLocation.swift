@@ -41,6 +41,7 @@ public class WebLocation : NSObject {
         let location : String? = json["location"].string
         let tags_id : Int? = json["tags_id"].int
         let thumbnail_default: String? = json["thumbnail_default"].string
+        let type: String? = json["type"].string
 
         if(code != nil && location != nil) {
             let web_location = WebLocation(code: code!, location: location!)
@@ -49,6 +50,9 @@ public class WebLocation : NSObject {
             }
             if(thumbnail_default != nil)    {
                 web_location?.thumbnail_default = thumbnail_default
+            }
+            if let type = type {
+                web_location?.type = type
             }
             return web_location
             

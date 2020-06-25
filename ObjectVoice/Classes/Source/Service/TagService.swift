@@ -407,5 +407,48 @@ public class TagService : ObjectVoiceAPIService   {
             }
         }
     }
+    
+    public func getTagById(tags_id: Int, completion: ((Int, String, OVTag?)->())?)    {
+        
+        let endpoint = "/public/tags/\(tags_id)"
+        let query_string = "?api_key=" + getAPIKey()
+        let base = getURLString(endpoint: endpoint, query_string: query_string)
+        guard let url = URL(string: base) else {
+            completion!(-1, "Malformed URL in endpoint request", nil)
+            return
+        }
+
+        
+        let parameters: Parameters = [:]
+                
+        let headers: HTTPHeaders = [
+            "authorization": "Bearer \(auth.jwt)"
+        ];
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        Alamofire.request(base, method: .get, encoding: JSONEncoding(options: []), headers: headers).response  { response in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            if let data = response.data, let rawTextResponse = String(data: data, encoding: .utf8) {
+                let json = JSON(parseJSON: rawTextResponse)
+                var result = -1
+                var tag: OVTag?
+                
+                if json["result"].intValue == 1 || json["result"].intValue == 0 {
+                    result = json["result"].intValue
+                    
+                    if let message = json["message"].string    {
+                        if(result == 1) {
+                            tag = OVTag.fromJSON(json: json["data"][OVTag.OBJECT_KEY])
+                        }
+                        completion!(result, message, tag)
+                        
+                    }   else    {
+                        completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tag)
+                    }
+                    
+                }
+            }
+        }
+    }
 
 }

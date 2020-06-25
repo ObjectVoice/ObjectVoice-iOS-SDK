@@ -113,7 +113,7 @@ public class BrandService : ObjectVoiceAPIService   {
                     let message :String? = json["message"].string
                     if(message != nil)  {
                         if(result == 1) {
-                            brand = Brand.fromJSON(json: json["data"]["brand"])
+                            brand = Brand.fromJSON(json: json["data"][Brand.OBJECT_KEY])
                         }
                         completion!(result, message!, brand)
                         

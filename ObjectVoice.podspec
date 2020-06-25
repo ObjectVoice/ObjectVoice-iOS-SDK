@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ObjectVoice'
-  s.version          = '0.1.5'
+  s.version          = '0.1.6'
   s.summary          = 'The iOS SDK for ObjectVoice'
   s.swift_versions   = '4.0'
 # This description is used to generate tags and improve search results.

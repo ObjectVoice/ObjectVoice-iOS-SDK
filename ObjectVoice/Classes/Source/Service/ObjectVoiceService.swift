@@ -323,7 +323,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         }
 
         
-        let endpoint = "/public/tags/tag_name" + tag
+        let endpoint = "/public/tags/tag_name/" + tag
         let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {

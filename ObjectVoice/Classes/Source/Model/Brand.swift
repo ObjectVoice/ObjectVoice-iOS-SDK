@@ -38,6 +38,10 @@ public class Brand : Codable {
     public static let TRIGGER_STATE_HOME: String = "HOME"
     public static let TRIGGER_STATE_MAPS: String = "MAPS"
     
+    public static let OBJECT_KEY: String = "brand"
+    public static let OBJECT_LIST_KEY: String = "brand"
+
+    
     enum CodingKeys: String, CodingKey {
         case brands_id
         case brand_name

@@ -413,6 +413,7 @@ public class TagService : ObjectVoiceAPIService   {
         let endpoint = "/public/tags/\(tags_id)"
         let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
+        print(base)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request", nil)
             return

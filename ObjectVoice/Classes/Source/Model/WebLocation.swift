@@ -51,7 +51,7 @@ public class WebLocation : NSObject {
             if(thumbnail_default != nil)    {
                 web_location?.thumbnail_default = thumbnail_default
             }
-            if let type = type {
+            if(type != nil) {
                 web_location?.type = type
             }
             return web_location

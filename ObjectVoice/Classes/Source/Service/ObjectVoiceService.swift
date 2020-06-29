@@ -203,8 +203,14 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         let endpoint = "/object_voices/" + code + "/web_locations"
         let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
-        guard let url = URL(string: base) else {
+        
+        guard let endpointURL = URL(string: base) else {
             completion!(-1, "Malformed URL in API request")
+            return
+        }
+        
+        guard let inputURL = URL(string: url) else {
+            completion!(-1, "Invalid URL, please try again")
             return
         }
 

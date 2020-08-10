@@ -148,6 +148,66 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         
     }
     
+    
+    public func update(code: String, alias: String? = nil, lat: Double? = nil, lon: Double? = nil, geo_fixed: Bool? = nil, completion: ((Int, String)->())?)  {
+        
+        let endpoint = "/object_voices/" + code
+        let query_string = "?api_key=" + getAPIKey()
+        let base = getURLString(endpoint: endpoint, query_string: query_string)
+        guard let url = URL(string: base) else {
+            completion!(-1, "Malformed URL in API request")
+            return
+        }
+        
+                
+        var parameters: Parameters = [
+            "code": code,
+        ]
+        
+        if let alias = alias    {
+            parameters["alias"] = alias
+        }
+        
+        if let lat = lat    {
+            parameters["lat"] = lat
+        }
+        
+        if let lon = lon    {
+            parameters["lon"] = lon
+        }
+        
+        if let geo_fixed = geo_fixed    {
+            parameters["geo_fixed"] = geo_fixed
+        }
+        
+        let headers: HTTPHeaders = [
+            "authorization": "Bearer \(auth.jwt)",
+        ];
+        
+        Alamofire.request(base, method: .patch, parameters: parameters, encoding: JSONEncoding(options: []), headers: headers).response  { response in
+            if let data = response.data, let rawTextResponse = String(data: data, encoding: .utf8) {
+                let json = JSON(parseJSON: rawTextResponse)
+                var result = -1
+                
+                if json["result"].intValue == 1 || json["result"].intValue == 0 {
+                    result = json["result"].intValue
+                    
+                    let message :String? = json["message"].string
+                    if(message != nil)  {
+                        completion!(result, message!)
+                    }   else    {
+                        completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.")
+                    }
+                    
+                }
+            }
+        }
+        
+    }
+    
+    
+    
+    
     public func clear(code: String, reclaim: Bool, completion: ((Int, String)->())?)  {
 
     

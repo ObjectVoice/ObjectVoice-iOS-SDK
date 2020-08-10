@@ -30,6 +30,7 @@ public class ObjectVoice {
     public var accountId: Int?
     public var web_locations: [WebLocation] = [WebLocation]()
     public var mimetype: String?
+    public var alias: String?
     public var visibility: String
     public var created: Date?
     public var firstAssigned: Date?
@@ -83,6 +84,7 @@ public class ObjectVoice {
         let first_assigned : String? = json["first_assigned"].string
         let last_assigned : String? = json["last_assigned"].string
         let category : String? = json["category"].string
+        let alias : String? = json["alias"].string
         var tags: [OVTag] = [OVTag]()
         var locations: [WebLocation] = [WebLocation]()
 
@@ -116,6 +118,9 @@ public class ObjectVoice {
             }
             if(account_id != nil)   {
                 object_voice?.accountId = account_id
+            }
+            if(alias != nil)   {
+                object_voice?.alias = alias
             }
             if(scans != nil)    {
                 object_voice?.scans = scans

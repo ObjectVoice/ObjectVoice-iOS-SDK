@@ -37,6 +37,8 @@ public class AccountService : ObjectVoiceAPIService   {
         self.role = defaults.object(forKey: AccountService.KEY_ROLE) as? String ?? String()
         self.agreed_tos = defaults.bool(forKey: AccountService.KEY_AGREED_TOS)
         self.needs_account_setup = defaults.bool(forKey: AccountService.KEY_NEEDS_ACCOUNT_SETUP)
+        super.init()
+
         
     }
     

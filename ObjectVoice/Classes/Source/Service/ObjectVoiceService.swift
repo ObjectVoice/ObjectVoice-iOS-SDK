@@ -66,6 +66,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
     
     public override init() {
         auth = AccountService()
+        super.init()
     }
 
     
@@ -458,6 +459,7 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         
         let endpoint = "/public/object_voices/" + code
         let query_string = "?api_key=" + getAPIKey()
+        
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Unexpected URL state getting ObjectVoice for code: " + code, nil)
@@ -470,8 +472,10 @@ public class ObjectVoiceService : ObjectVoiceAPIService   {
         let locationService = LocationService()
         let last_location = locationService.getLastLocation()
         
-        parameters["scan_type"] = scan_type
         parameters["api_key"] = getAPIKey()
+        parameters["device_id"] = getDeviceId()
+        parameters["scan_type"] = scan_type
+        
         
         if let lat = last_location?.coordinate.latitude {
             parameters["lat"] = lat

@@ -22,6 +22,7 @@ public class BrandService : ObjectVoiceAPIService   {
     
     public override init() {
         auth = AccountService()
+        super.init()
     }
 
     public func create(brand: Brand, completion: ((Int, String, Brand?)->())?)  {

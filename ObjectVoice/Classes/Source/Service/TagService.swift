@@ -16,6 +16,7 @@ public class TagService : ObjectVoiceAPIService   {
 
     public override init() {
         auth = AccountService()
+        super.init()
     }
     
     public func assignToAccountMap(code: String, completion: ((Int, String)->())?)  {

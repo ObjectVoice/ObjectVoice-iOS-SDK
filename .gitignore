@@ -19,6 +19,11 @@ DerivedData
 *.hmap
 *.ipa
 
+#Jetbrains
+.idea
+.idea/
+Example/Pods/.idea/
+
 # Bundler
 .bundle
 

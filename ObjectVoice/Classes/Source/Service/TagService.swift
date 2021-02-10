@@ -123,15 +123,18 @@ public class TagService : ObjectVoiceAPIService   {
         
     }
 
-    public func getNearbyTags(completion: ((Int, String, [OVTag])->())?)    {
-        
-        
-        
-        let endpoint = "/public/tags/nearby"
+    public func getNearbyTags(tag_groups_id: Int?, completion: ((Int, String, [OVTag])->())?)  {
+        return getNearbyTags(tag_groups_id: tag_groups_id, radius: nil, completion: completion)
+    }
+
+
+    public func getNearbyTags(tag_groups_id: Int?, radius: Int?, completion: ((Int, String, [OVTag])->())?)  {
+
+        let endpoint = "/public/tags/proximity"
         var query_string = "?api_key=" + getAPIKey()
         let locationService = LocationService()
         let last_location = locationService.getLastLocation()
-        
+
         if let lat = last_location?.coordinate.latitude {
             query_string = query_string + "&lat=\(lat)"
         }
@@ -147,27 +150,33 @@ public class TagService : ObjectVoiceAPIService   {
         if let horizontal_accuracy = last_location?.horizontalAccuracy {
             query_string = query_string + "&accuracy=\(horizontal_accuracy)"
         }
-        
-        
+        if let rad = radius  {
+            query_string = query_string + "&radius=\(rad)"
+        }
+        if let tgid = tag_groups_id  {
+            query_string = query_string + "&tag_groups_id=\(tgid)"
+        }
+
+
         let base = getURLString(endpoint: endpoint, query_string: query_string)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request", [OVTag]())
             return
         }
-        
+
 //        if let brand = PreferencesService.current_brand {
 //            base = base + "&brands_id=\(brand.brands_id)"
 //        }
 
-            
-                
+
+
         let parameters: Parameters = [:]
-        
+
 
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)",
         ];
-        
+
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         Alamofire.request(base, method: .get, encoding: JSONEncoding(options: []), headers: headers).response  { response in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -175,10 +184,10 @@ public class TagService : ObjectVoiceAPIService   {
                 let json = JSON(parseJSON: rawTextResponse)
                 var result = -1
                 var tags = [OVTag]()
-                
+
                 if json["result"].intValue == 1 || json["result"].intValue == 0 {
                     result = json["result"].intValue
-                    
+
                     let message :String? = json["message"].string
                     if(message != nil)  {
                         if(result == 1) {
@@ -190,163 +199,22 @@ public class TagService : ObjectVoiceAPIService   {
                                     }
                                 }
                             }
-                            
+
                         }
                         completion!(result, message!, tags)
-                        
+
                     }   else    {
                         completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tags)
                     }
-                    
+
                 }
             }
         }
     }
 
-    
-    public func getMostPopularTags(completion: ((Int, String, [OVTag])->())?)    {
-        return getMostPopularTags(brands_id: nil, completion: completion)
-    }
-
-    public func getMostPopularTags(brands_id: Int?, completion: ((Int, String, [OVTag])->())?)    {
-        
-        
-        let endpoint = "/public/tags/popular"
-        var query_string = "?api_key=" + getAPIKey()
-        if let brands_id_unwrapped = brands_id {
-            query_string += "&brands_id=\(brands_id_unwrapped)"
-        }
-        let base = getURLString(endpoint: endpoint, query_string: query_string)
-        guard let url = URL(string: base) else {
-            completion!(-1, "Malformed URL in endpoint request", [OVTag]())
-            return
-        }
-        
-
-        let headers: HTTPHeaders = [
-            "authorization": "Bearer \(auth.jwt)",
-        ];
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(base, method: .get, encoding: JSONEncoding(options: []), headers: headers).response  { response in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            if let data = response.data, let rawTextResponse = String(data: data, encoding: .utf8) {
-                let json = JSON(parseJSON: rawTextResponse)
-                var result = -1
-                var tags = [OVTag]()
-                
-                if json["result"].intValue == 1 || json["result"].intValue == 0 {
-                    result = json["result"].intValue
-                    
-                    let message :String? = json["message"].string
-                    if(message != nil)  {
-                        if(result == 1) {
-                            let object_voices = json["data"][OVTag.OBJECT_KEY].array
-                            for (key, subJson) in json["data"][OVTag.OBJECT_KEY] {
-                                if let tag_name = subJson["tag_name"].string {
-                                    if let parsed = OVTag.fromJSON(json: subJson)   {
-                                        tags.append(parsed)
-                                    }
-                                }
-                            }
-                            
-                        }
-                        completion!(result, message!, tags)
-                        
-                    }   else    {
-                        completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tags)
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    public func searchForNearbyTags(search: String, completion: ((Int, String, [OVTag])->())?)    {
-        return searchForNearbyTags(brands_id: nil, search: search, completion: completion)
-    }
-
-    public func searchForNearbyTags(brands_id: Int?, search: String, completion: ((Int, String, [OVTag])->())?)    {
-        
-        let filtered_search = search.replacingOccurrences(of: "#", with: "").replacingOccurrences(of: "@", with: "").replacingOccurrences(of: "/", with: "")
-
-        
-        let endpoint = "/public/tags/search/nearby/" + filtered_search
-        var query_string = "?api_key=" + getAPIKey()
-        if let brands_id_unwrapped = brands_id {
-            query_string += "&brands_id=\(brands_id_unwrapped)"
-        }
-        
-        let locationService = LocationService()
-        let last_location = locationService.getLastLocation()
-        
-        if let lat = last_location?.coordinate.latitude {
-            query_string += "&lat=\(lat)"
-        }
-        if let lon = last_location?.coordinate.longitude {
-            query_string += "&lon=\(lon)"
-        }
-        if let altitude = last_location?.altitude {
-            query_string += "&altitude=\(altitude)"
-        }
-        if let timestamp = last_location?.timestamp {
-            query_string += "&location_acquired=\(timestamp.timeIntervalSince1970)"
-        }
-        if let horizontal_accuracy = last_location?.horizontalAccuracy {
-            query_string += "&accuracy=\(horizontal_accuracy)"
-        }
-        
-        
-        let base = getURLString(endpoint: endpoint, query_string: query_string)
-        guard let url = URL(string: base) else {
-            completion!(-1, "Malformed URL in endpoint request", [OVTag]())
-            return
-        }
-        
-        
-        let parameters: Parameters = [:]
-        
-        let headers: HTTPHeaders = [
-            "authorization": "Bearer \(auth.jwt)",
-        ];
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(base, method: .get, encoding: JSONEncoding(options: []), headers: headers).response  { response in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            if let data = response.data, let rawTextResponse = String(data: data, encoding: .utf8) {
-                let json = JSON(parseJSON: rawTextResponse)
-                var result = -1
-                var tags = [OVTag]()
-                
-                if json["result"].intValue == 1 || json["result"].intValue == 0 {
-                    result = json["result"].intValue
-                    
-                    let message :String? = json["message"].string
-                    if(message != nil)  {
-                        if(result == 1) {
-                            let object_voices = json["data"][OVTag.OBJECT_KEY].array
-                            for (key, subJson) in json["data"][OVTag.OBJECT_KEY] {
-                                if let tag_name = subJson["tag_name"].string {
-                                    if let parsed = OVTag.fromJSON(json: subJson)   {
-                                        tags.append(parsed)
-                                    }
-                                }
-                            }
-                            
-                                                    }
-                        completion!(result, message!, tags)
-                        
-                    }   else    {
-                        completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tags)
-                    }
-                    
-                }
-            }
-        }
-    }
     
     public func searchForTags(search: String, completion: ((Int, String, [OVTag])->())?)    {
-        return searchForNearbyTags(brands_id: nil, search: search, completion: completion)
+        return searchForTags(brands_id: nil, search: search, completion: completion)
     }
     
     public func searchForTags(brands_id: Int?, search: String, completion: ((Int, String, [OVTag])->())?)    {
@@ -414,7 +282,6 @@ public class TagService : ObjectVoiceAPIService   {
         let endpoint = "/public/tags/\(tags_id)"
         let query_string = "?api_key=" + getAPIKey()
         let base = getURLString(endpoint: endpoint, query_string: query_string)
-        print(base)
         guard let url = URL(string: base) else {
             completion!(-1, "Malformed URL in endpoint request", nil)
             return
@@ -448,6 +315,76 @@ public class TagService : ObjectVoiceAPIService   {
                         completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tag)
                     }
                     
+                }
+            }
+        }
+    }
+
+    public func getTagsByIds(tags_ids: [Int], completion: ((Int, String, [OVTag])->())?)    {
+
+        var tags_id_string = ""
+        for id in tags_ids  {
+            if !tags_id_string.isEmpty   {
+                tags_id_string += ","
+            }
+            tags_id_string += "\(id)"
+        }
+
+        if tags_id_string == "" {
+            completion!(1, "Empty tag list", [OVTag]())
+            return
+        }
+
+
+        let endpoint = "/public/tags/\(tags_id_string)"
+        let query_string = "?api_key=" + getAPIKey()
+        let base = getURLString(endpoint: endpoint, query_string: query_string)
+        guard let url = URL(string: base) else {
+            completion!(-1, "Malformed URL in endpoint request", [OVTag]())
+            return
+        }
+
+
+
+        let parameters: Parameters = [:]
+
+        let headers: HTTPHeaders = [
+            "authorization": "Bearer \(auth.jwt)"
+        ];
+
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        Alamofire.request(base, method: .get, encoding: JSONEncoding(options: []), headers: headers).response  { response in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            if let data = response.data, let rawTextResponse = String(data: data, encoding: .utf8) {
+                let json = JSON(parseJSON: rawTextResponse)
+                var result = -1
+                var tags = [OVTag]()
+
+                if json["result"].intValue == 1 || json["result"].intValue == 0 {
+                    result = json["result"].intValue
+
+                    if let message = json["message"].string    {
+                        if(result == 1) {
+                            if !json["data"][OVTag.OBJECT_KEY]["tag_name"].exists() {
+                                for (key, subJson) in json["data"][OVTag.OBJECT_KEY] {
+                                    if let tag_name = subJson["tag_name"].string {
+                                        if let parsed = OVTag.fromJSON(json: subJson) {
+                                            tags.append(parsed)
+                                        }
+                                    }
+                                }
+                            }   else    {
+                                if let parsed = OVTag.fromJSON(json: json["data"][OVTag.OBJECT_KEY]) {
+                                    tags.append(parsed)
+                                }
+                            }
+
+                            completion!(result, message, tags)
+                        }
+                    }   else    {
+                        completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tags)
+                    }
+
                 }
             }
         }

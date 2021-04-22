@@ -23,6 +23,7 @@
 		1662BEDD868AF1CD729C4269E69A3580 /* MatcherFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ABFEF7EE21AAE63EFD820BE2A4A36B /* MatcherFunc.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		1945CD5D63A1C164AEAAA9A33E85571E /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B81EFD2EF6152871A633DF66F5CB5A /* Alamofire-dummy.m */; };
 		1986B50C74F1697EA43F68335C93CEB3 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11766C47420C0EC5DC01A2DFD84682AD /* MultipartFormData.swift */; };
+		1AD8385E2626AF0000DFB658 /* BadgeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8385D2626AF0000DFB658 /* BadgeService.swift */; };
 		1AE2DCB825C21FCD009F2828 /* OVTagGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2DCB725C21FCD009F2828 /* OVTagGroup.swift */; };
 		1AE2DCC125C22D41009F2828 /* TagGroupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2DCC025C22D41009F2828 /* TagGroupService.swift */; };
 		1EA797B70F587D59DD66A07503CD95D7 /* CwlCatchException.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6B77BA71D828BCA23378A4C2274F /* CwlCatchException.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -256,6 +257,7 @@
 		1A329FFE382FC5540A8EB41CDAAF9F7A /* Pods-ObjectVoice_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ObjectVoice_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		1AB1187E6642E4ADC1F5658D56087428 /* HooksPhase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HooksPhase.swift; path = Sources/Quick/Hooks/HooksPhase.swift; sourceTree = "<group>"; };
 		1AD68CC5B1E58A0FDC828F335B302CCD /* ExpectationMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpectationMessage.swift; path = Sources/Nimble/ExpectationMessage.swift; sourceTree = "<group>"; };
+		1AD8385D2626AF0000DFB658 /* BadgeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeService.swift; sourceTree = "<group>"; };
 		1AE2DCB725C21FCD009F2828 /* OVTagGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OVTagGroup.swift; sourceTree = "<group>"; };
 		1AE2DCC025C22D41009F2828 /* TagGroupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagGroupService.swift; sourceTree = "<group>"; };
 		1CCF343DFCCF2DC07DC1BF8C294DF401 /* QuickConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QuickConfiguration.h; path = Sources/QuickObjectiveC/Configuration/QuickConfiguration.h; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 			children = (
 				5FE78B0A01E45B24E39AE5D06EB45897 /* AccountService.swift */,
 				A75C09295E852B1A63A65912F9B107F2 /* APIService.swift */,
+				1AD8385D2626AF0000DFB658 /* BadgeService.swift */,
 				05059157673D2AEC0E7D854C9BCC7A57 /* BrandService.swift */,
 				B55442B805A365BF09E7E17CE7C6D9ED /* LocationService.swift */,
 				52925CEB24D4321053418163B7B91098 /* ObjectVoiceService.swift */,
@@ -1213,6 +1216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EF57F353F20ED29CBF96DEDCC4F4E0A /* Account.swift in Sources */,
+				1AD8385E2626AF0000DFB658 /* BadgeService.swift in Sources */,
 				96E7434C59D89FA7CB7B92B1F0CAC3C3 /* AccountService.swift in Sources */,
 				7ACF54F3B4C65C70A54DD000378E3B45 /* APIService.swift in Sources */,
 				9391D326AF3B82A0A6AF02CC9B140CDF /* Badge.swift in Sources */,

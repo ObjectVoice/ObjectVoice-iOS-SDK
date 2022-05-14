@@ -9,6 +9,8 @@
 import Foundation
 import SwiftyJSON
 import Alamofire
+import CoreLocation
+
 
 public class TagService : ObjectVoiceAPIService   {
 
@@ -19,7 +21,7 @@ public class TagService : ObjectVoiceAPIService   {
         super.init()
     }
 
-    public func assignToMap(code: String, tags_id: Int, completion: ((Int, String)->())?)  {
+    public func assignToMap(code: String, tags_id: Int, loc: CLLocation?, geo_fixed: Bool?, completion: ((Int, String)->())?)  {
 
         let endpoint = "/tags/\(tags_id)/object_voices/\(code)"
         let query_string = "?api_key=" + getAPIKey()
@@ -33,28 +35,40 @@ public class TagService : ObjectVoiceAPIService   {
             "code": code,
         ]
 
-        let locationService = LocationService()
-        let last_location = locationService.getLastLocation()
+        if let loca = loc   {
+            parameters["lat"] = loca.coordinate.latitude
+            parameters["lon"] = loca.coordinate.longitude
+        }
+        else    {
+            let locationService = LocationService()
+            let last_location = locationService.getLastLocation()
 
-        if let lat = last_location?.coordinate.latitude {
-            parameters["lat"] = lat
+            if let lat = last_location?.coordinate.latitude {
+                parameters["lat"] = lat
+            }
+            if let lon = last_location?.coordinate.longitude {
+                parameters["lon"] = lon
+            }
+            if let altitude = last_location?.altitude {
+                parameters["altitude"] = altitude
+                parameters["provider"] = "ios-gps"
+            }
+            if let timestamp = last_location?.timestamp {
+                parameters["location_acquired"] = timestamp.timeIntervalSince1970
+            }
+            if let horizontal_accuracy = last_location?.horizontalAccuracy {
+                parameters["accuracy"] = horizontal_accuracy
+            }
+            if let timestamp = last_location?.timestamp {
+                parameters["location_acquired"] = "\(timestamp.timeIntervalSince1970)"
+            }
+
         }
-        if let lon = last_location?.coordinate.longitude {
-            parameters["lon"] = lon
+        
+        if let geo = geo_fixed  {
+            parameters["geo_fixed"] = geo_fixed
         }
-        if let altitude = last_location?.altitude {
-            parameters["altitude"] = altitude
-            parameters["provider"] = "ios-gps"
-        }
-        if let timestamp = last_location?.timestamp {
-            parameters["location_acquired"] = timestamp.timeIntervalSince1970
-        }
-        if let horizontal_accuracy = last_location?.horizontalAccuracy {
-            parameters["accuracy"] = horizontal_accuracy
-        }
-        if let timestamp = last_location?.timestamp {
-            parameters["location_acquired"] = "\(timestamp.timeIntervalSince1970)"
-        }
+        
 
         let headers: HTTPHeaders = [
             "authorization": "Bearer \(auth.jwt)",
@@ -146,6 +160,60 @@ public class TagService : ObjectVoiceAPIService   {
     public func getAccountTags(completion: ((Int, String, [OVTag])->())?)  {
 
         let endpoint = "/accounts/current/tags"
+        var query_string = "?api_key=" + getAPIKey()
+
+
+        let base = getURLString(endpoint: endpoint, query_string: query_string)
+        guard let url = URL(string: base) else {
+            completion!(-1, "Malformed URL in endpoint request", [OVTag]())
+            return
+        }
+
+        let parameters: Parameters = [:]
+
+
+        let headers: HTTPHeaders = [
+            "authorization": "Bearer \(auth.jwt)",
+        ];
+
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        Alamofire.request(base, method: .get, encoding: JSONEncoding(options: []), headers: headers).response  { response in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            if let data = response.data, let rawTextResponse = String(data: data, encoding: .utf8) {
+                let json = JSON(parseJSON: rawTextResponse)
+                var result = -1
+                var tags = [OVTag]()
+
+                if json["result"].intValue == 1 || json["result"].intValue == 0 {
+                    result = json["result"].intValue
+
+                    let message :String? = json["message"].string
+                    if(message != nil)  {
+                        if(result == 1) {
+                            let object_voices = json["data"][OVTag.OBJECT_KEY].array
+                            for (key, subJson) in json["data"][OVTag.OBJECT_KEY] {
+                                if let tag_name = subJson["tag_name"].string {
+                                    if let parsed = OVTag.fromJSON(json: subJson)   {
+                                        tags.append(parsed)
+                                    }
+                                }
+                            }
+
+                        }
+                        completion!(result, message!, tags)
+
+                    }   else    {
+                        completion!(-1, "Invalid response from server, please try again or contact james@objectvoice.com for assistance.", tags)
+                    }
+
+                }
+            }
+        }
+    }
+
+    public func getAccountContributionTags(completion: ((Int, String, [OVTag])->())?)  {
+
+        let endpoint = "/accounts/current/tags/contribute"
         var query_string = "?api_key=" + getAPIKey()
 
 
